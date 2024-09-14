@@ -136,8 +136,8 @@ class _MyAppState extends State<MyApp> {
 
             supportedLocales: S.delegate.supportedLocales,
             locale: _locale,
-            home: const AppLayout(),
-            // home: const AppSplash(),
+            // home: const AppLayout(),
+            home: const AppSplash(),
           );
         }));
   }
