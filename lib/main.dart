@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:sketch/ui/mainLayout/app_layout.dart';
 import 'package:sketch/ui/splash/app_splash.dart';
 
 import 'generated/l10n.dart';
@@ -135,8 +136,8 @@ class _MyAppState extends State<MyApp> {
 
             supportedLocales: S.delegate.supportedLocales,
             locale: _locale,
-            // home: const AppLayout(),
-            home: const AppSplash(),
+            home: const AppLayout(),
+            // home: const AppSplash(),
           );
         }));
   }
