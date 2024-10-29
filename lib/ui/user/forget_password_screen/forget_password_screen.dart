@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:sketch/ui/user/otp/otp_screen.dart';
 import 'package:sketch/ui/widgets/custom_button.dart';
+import 'package:sketch/ui/widgets/navigate.dart';
 import 'package:sketch/utils/styles/colors.dart';
 
 import '../../../providers/authentication_provider.dart';
@@ -48,9 +50,10 @@ class ForgetScreen extends StatelessWidget {
               ),
             ),
             verticalSpace(60),
-            const CustomTextField(
+            CustomTextField(
               labelText: 'Phone Number',
               keyboardType: TextInputType.phone,
+              controller: authenticationProvider.phoneController,
             ),
             verticalSpace(60),
             DefaultButton(
@@ -61,8 +64,8 @@ class ForgetScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 text: 'Send Code',
                 onPressed: () {
-                  if(authenticationProvider.codeOTP.length == 4){
-
+                  if(authenticationProvider.phoneController.text.length > 4){
+                    navigateTo(context, OTPScreen());
                   } else {
                     showDialog(
                         context: context,

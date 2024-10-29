@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sketch/ui/widgets/text_widget.dart';
 
-import '../../widgets/custom_container.dart';
-import '../../widgets/navigate.dart';
-import '../../widgets/spaces.dart';
-import '../video_ex.dart';
+import '../widgets/custom_container.dart';
+import '../widgets/navigate.dart';
+import '../widgets/spaces.dart';
+import '../home/video_ex.dart';
 
 class ReelsItems extends StatelessWidget {
   const ReelsItems({

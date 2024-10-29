@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:sketch/ui/mainLayout/app_layout.dart';
 import 'package:sketch/ui/user/forget_password_screen/forget_password_screen.dart';
 import 'package:sketch/ui/user/otp/otp_screen.dart';
+import 'package:sketch/ui/user/register/register.dart';
 import 'package:sketch/ui/widgets/custom_button.dart';
 import 'package:sketch/ui/widgets/navigate.dart';
 import 'package:sketch/ui/widgets/spaces.dart';
@@ -52,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     TextWidget(text: S.of(context).welcomeBack,
                        textSize: 24.sp,
+                      fontWeight: FontWeight.bold,
                      ),
                     verticalSpace(10),
                     // Subtitle
@@ -90,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 25),
               // Login Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -108,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               // Or Login With
               Row(
                 children: [
@@ -123,10 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   horizontalSpace(10),
                   const Expanded(child: CustomContainer(backgroundColor: Colors.white,height: 1,)),
-
                 ],
               ),
-              verticalSpace(20),
+              verticalSpace(15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: DefaultButtonWithIcon(
@@ -176,6 +178,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: (){},
                 ),
               ),
+              verticalSpace(15),
+              RichText(
+                text: TextSpan(
+                  text: 'Don’t have an account?  ',
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                  children: [
+                    TextSpan(
+                        text: 'Sign up',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            navigateTo(context, const SignUpScreen());
+                          }),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -185,47 +207,3 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 
-class SocialButton extends StatelessWidget {
-  final Color color;
-  final String iconPath;
-  final String text;
-  final VoidCallback onPressed;
-
-  const SocialButton({
-    Key? key,
-    required this.color,
-    required this.iconPath,
-    required this.text,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 50,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: SvgPicture.asset(
-          iconPath,
-          height: 24,
-          color: Colors.white,
-        ),
-        label: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
-    );
-  }
-}

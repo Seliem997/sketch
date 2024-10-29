@@ -116,7 +116,8 @@ class OTPScreen extends StatelessWidget {
                         }),
                 ],
               ),
-            ),          ],
+            ),
+          ],
         ),
       ),
     );

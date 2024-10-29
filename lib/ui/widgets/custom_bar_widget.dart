@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 width: 5.w,
               )*/const Icon(Icons.connecting_airports_sharp),
               onPressed: onArrowPressed ?? () => Navigator.pop(context),
-              color: Colors.black,
+              color: Colors.white,
               iconSize: 20.0,
             )
           : customizePopButton,

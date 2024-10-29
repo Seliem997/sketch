@@ -5,9 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sketch/ui/home/widgets/categories.dart';
-import 'package:sketch/ui/home/widgets/reels_widget.dart';
+import 'package:sketch/ui/home/widgets/news_card.dart';
+import 'package:sketch/ui/reels/reels_widget.dart';
+import 'package:sketch/ui/user/profile/profile_screen.dart';
+import 'package:sketch/ui/widgets/navigate.dart';
 import 'package:sketch/ui/widgets/spaces.dart';
 import 'package:sketch/ui/widgets/text_widget.dart';
+
+import 'widgets/gallery_card.dart';
+import 'widgets/service_card.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -36,9 +42,14 @@ class HomePage extends StatelessWidget {
                           child: SvgPicture.asset('assets/svg/language.svg'),
                         ),
                         horizontalSpace(18),
-                        const CircleAvatar(
-                          radius: 15,
-                          backgroundImage: AssetImage('assets/images/img.png'), // Replace with your image path
+                        GestureDetector(
+                          onTap: (){
+                            navigateTo(context, const ProfileScreen());
+                          },
+                          child: const CircleAvatar(
+                            radius: 15,
+                            backgroundImage: AssetImage('assets/images/img.png'), // Replace with your image path
+                          ),
                         ),
                       ],
                     ),
@@ -71,6 +82,7 @@ class HomePage extends StatelessWidget {
                     const ReelsItems(),
                     verticalSpace(10),
                     // News
+                    const SizedBox(height: 32),
                     const Text(
                       'News',
                       style: TextStyle(
@@ -79,26 +91,19 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'News',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: 25.h,
+                      child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => const NewsCard(
+                            imagePath: 'assets/images/testImg.png',
+                            title: 'Modern Villa Design',
+                            description: 'The architectural design is a stable and centralised composition consisting of a number of spaces that gather around a dominant idea',
+                          ), separatorBuilder: (context, index)=> horizontalSpace(10), itemCount: 5),
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'News',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                      Text(
+                      const Text(
                         'Gallery',
                         style: TextStyle(
                           color: Colors.white,
@@ -106,22 +111,18 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       SizedBox(
                         height: 20.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ImageContainer(imagePath: 'assets/images/testImg.png'),
-                            SizedBox(width: 8),
-                            ImageContainer(imagePath: 'assets/images/testImg.png'),
-                            SizedBox(height: 8),
-                            ImageContainer(imagePath: 'assets/images/testImg.png'),
-                          ],
-                        ),
+                       child: ListView.separated(
+                           scrollDirection: Axis.horizontal,
+                           itemBuilder: (context, index) => const GalleryCard(imagePath: 'assets/images/testImg.png'),
+                           separatorBuilder: (context, index)=> horizontalSpace(10),
+                           itemCount: 5,
+                       ),
                       ),
-                      SizedBox(height: 32),
-                      Text(
+                      const SizedBox(height: 32),
+                      const Text(
                         'Services',
                         style: TextStyle(
                           color: Colors.white,
@@ -129,15 +130,15 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       SizedBox(
                         height: 20.h,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => ServiceCard(
+                            itemBuilder: (context, index) => const ServiceCard(
                           imagePath: 'assets/images/testImg.png',
                           title: 'Architectural Design',
-                        ), separatorBuilder: (context, index)=> horizontalSpace(5), itemCount: 5),
+                        ), separatorBuilder: (context, index)=> horizontalSpace(10), itemCount: 5),
                       ),
                     verticalSpace(15.h)
 
@@ -177,67 +178,4 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class ImageContainer extends StatelessWidget {
-  final String imagePath;
 
-  const ImageContainer({required this.imagePath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(
-          image: AssetImage(imagePath),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-}
-
-class ServiceCard extends StatelessWidget {
-  final String imagePath;
-  final String title;
-
-  const ServiceCard({required this.imagePath, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 20.h,
-          width: 40.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            image: DecorationImage(
-              image: AssetImage(imagePath),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.6),
-            ),
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

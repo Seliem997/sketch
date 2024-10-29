@@ -4,13 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sketch/ui/onboarding/widgets/boarding_items_list.dart';
 import 'package:sketch/ui/onboarding/widgets/page_view_items.dart';
+import 'package:sketch/ui/user/login.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../main.dart';
 import '../../utils/cache_helper.dart';
 import '../../utils/enum/shared_preference_keys.dart';
 import '../../utils/styles/colors.dart';
-import '../user/register/register.dart';
 import '../widgets/navigate.dart';
 import '../widgets/spaces.dart';
 import '../widgets/text_widget.dart';
@@ -31,7 +31,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     CacheHelper.saveData(key: CacheKey.showOnBoarding, value: true)
         .then((value) {
       if (value) {
-        navigateAndFinish(context, const RegisterPhoneNumber());
+        navigateAndFinish(context, const LoginScreen());
       }
     });
   }

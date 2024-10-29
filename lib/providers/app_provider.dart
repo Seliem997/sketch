@@ -1,11 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:sketch/ui/reels/reels_screen.dart';
 
-import '../ui/home/home.dart';
+import '../ui/chat/chat_screen.dart';
+import '../ui/gallery/gallery_screen.dart';
 import '../ui/home/home_screen.dart';
-import '../ui/onboarding/onboarding_screen.dart';
-import '../ui/user/register/register.dart';
 
 class AppProvider extends ChangeNotifier {
 
@@ -13,9 +12,9 @@ class AppProvider extends ChangeNotifier {
 
   List<Widget> bottomScreens = [
     const HomePage(),
-    const OnboardingScreen(),
-    const HomePage(),
-    const OnboardingScreen(),
+    const ChatScreen(),
+    const ReelsScreen(),
+    const GalleryScreen(),
   ];
 
   void changeBottom(int index) {

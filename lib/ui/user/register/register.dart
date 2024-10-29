@@ -1,129 +1,199 @@
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+import 'package:sketch/ui/mainLayout/app_layout.dart';
+import 'package:sketch/ui/user/forget_password_screen/forget_password_screen.dart';
+import 'package:sketch/ui/user/login.dart';
+import 'package:sketch/ui/user/otp/otp_screen.dart';
+import 'package:sketch/ui/widgets/custom_button.dart';
+import 'package:sketch/ui/widgets/navigate.dart';
+import 'package:sketch/ui/widgets/spaces.dart';
+import 'package:sketch/ui/widgets/text_widget.dart';
+import 'package:sketch/utils/styles/colors.dart';
 
-import '../../../services/authentication_service.dart';
-import '../../../utils/font_styles.dart';
-import '../../widgets/custom_bar_widget.dart';
+import '../../../providers/authentication_provider.dart';
 import '../../widgets/custom_container.dart';
-import '../../widgets/spaces.dart';
-import '../../widgets/text_widget.dart';
+import '../../widgets/custom_textField.dart';
+import '../../widgets/eye_widget.dart';
 
-class RegisterPhoneNumber extends StatefulWidget {
-  const RegisterPhoneNumber({super.key});
+
+
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<RegisterPhoneNumber> createState() => _RegisterPhoneNumberState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _RegisterPhoneNumberState extends State<RegisterPhoneNumber> {
-
-  final AuthenticationService auth = AuthenticationService();
-  bool isValid= false;
-  late String _countryCode;
-  late String _phoneNumber;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final AuthenticationProvider authProvider= Provider.of<AuthenticationProvider>(context);
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'Register or Login',
-        withArrow: false,
-      ),
-      body: Padding(
-        padding: symmetricEdgeInsets(vertical: 40, horizontal: 24),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
+      backgroundColor: AppColor.primary,
+      body: Center(
+        child: SingleChildScrollView(
+          padding: symmetricEdgeInsets(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              verticalSpace(20),
+              CustomContainer(
+                height: 91,
+                width: 161,
+                child: Image.asset('assets/images/whiteLogo.png',),
+              ),
+              verticalSpace(40),
+              Align(
+                alignment: Alignment.topLeft,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset('assets/images/img.png'),
-                    verticalSpace(20),
-                    CustomSizedBox(
-                      width: 200,
-                      child: TextWidget(
-                        text: 'you Will Receive A 4 Digital Code To Verify Next',
-                        textSize: MyFontSize.size15,
-                        fontWeight: MyFontWeight.medium,
-                        textAlign: TextAlign.center,
-                        height: 1.3,
-                      ),
+                    TextWidget(text: 'Hi',
+                      textSize: 24.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                    verticalSpace(15),
-                    Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: TextWidget(
-                          text: 'Enter Your Phone Number',
-                          textSize: MyFontSize.size12,
-                          fontWeight: MyFontWeight.regular,
-                        )),
-                    verticalSpace(16),
-                    IntlPhoneField(
-                      decoration: InputDecoration(
-                        labelText: 'Phone Number',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(),
-                        ),
-                      ),
-                      initialCountryCode: 'SA',
-                      onChanged: (phone) {
-                        setState(() {
-                          isValid = false;
-                        });
-                        print(phone.completeNumber);
-                        print(phone.number);
-                        if(phone.isValidNumber()){
-                          setState(() {
-                            isValid = true;
-                          });
-                          _countryCode = phone.countryCode;
-                          _phoneNumber = phone.number;
-                        }
-                      },
+                    verticalSpace(10),
+                    // Subtitle
+                    TextWidget(
+                      text: 'Create Your Account',
+                      textSize: 18.sp,
                     ),
+                    verticalSpace(40),
                   ],
                 ),
               ),
-            ),
-            verticalSpace(10),
-            // DefaultButton(
-            //   height: 48,
-            //   width: 345,
-            //   fontSize: MyFontSize.size18,
-            //   fontWeight: MyFontWeight.bold,
-            //   backgroundColor: isValid ? AppColor.primary : AppColor.grey,
-            //   enabled: isValid,
-            //   radiusCircular: 6,
-            //   text: 'confirm',
-            //   // onPressed: () {
-            //   //   navigateTo(
-            //   //       context,
-            //   //       // OTPScreen(phoneNumber: _phoneNumber, countryCode: _countryCode));
-            //   //     /*AppLoader.showLoader(context);
-            //   //     auth
-            //   //         .registerOrLogin(_phoneNumber, _countryCode)
-            //   //         .then((value) {
-            //   //       AppLoader.stopLoader();
-            //   //       if (value.status == Status.success) {
-            //   //         navigateTo(
-            //   //             context,
-            //   //             OTPScreen(phoneNumber: _phoneNumber, countryCode: _countryCode));
-            //   //       } else {
-            //   //         CustomSnackBars.failureSnackBar(context, value.message);
-            //   //       }
-            //   //     });*/
-            //   //
-            //   // },
-            // ),
-          ],
+              const CustomTextField(
+                labelText: 'Mobile Number',
+                keyboardType: TextInputType.phone,
+              ),
+              const SizedBox(height: 30),
+              const CustomTextField(
+                labelText: 'User Name',
+              ),
+              const SizedBox(height: 30),
+              CustomTextField(
+                obscureText: authProvider.obscureText,
+                labelText: 'Password',
+                suffixIcon: EyeWidget(
+                    onTap: () {
+                      authProvider.showPassword();
+                    }),
+              ),
+              const SizedBox(height: 25),
+              // Login Button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: DefaultButton(
+                  text: 'Sign Up',
+                  backgroundColor: Colors.white,
+                  textColor: AppColor.primary,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  width: 354,
+                  height: 50,
+                  radiusCircular: 12,
+                  onPressed: (){
+                    navigateTo(context, AppLayout());
+                  },
+                ),
+              ),
+              const SizedBox(height: 15),
+              // Or Login With
+              Row(
+                children: [
+                  const Expanded(child: CustomContainer(backgroundColor: Colors.white,height: 1,)),
+                  horizontalSpace(10),
+                  const Text(
+                    'Or Signup with',
+                    style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: 16,
+                    ),
+                  ),
+                  horizontalSpace(10),
+                  const Expanded(child: CustomContainer(backgroundColor: Colors.white,height: 1,)),
+                ],
+              ),
+              verticalSpace(15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: DefaultButtonWithIcon(
+                  icon: SvgPicture.asset('assets/svg/facebook.svg'),
+                  labelText: '   Continue with Facebook',
+                  backgroundButton: const Color(0xFF1877F2),
+                  textColor: AppColor.primary,
+                  labelSize: 16,
+                  width: 354,
+                  height: 50,
+                  borderRadius: BorderRadius.circular(12),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  onPressed: (){
+                    navigateTo(context, OTPScreen());
+                  },
+                ),
+              ),
+              verticalSpace(10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: DefaultButtonWithIcon(
+                  icon: SvgPicture.asset('assets/svg/google.svg'),
+                  labelText: '   Continue with Google',
+                  backgroundButton: Colors.white,
+                  textColor: AppColor.primary,
+                  labelSize: 16,
+                  width: 354,
+                  height: 50,
+                  borderRadius: BorderRadius.circular(12),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  onPressed: (){},
+                ),
+              ),
+              verticalSpace(10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: DefaultButtonWithIcon(
+                  icon: SvgPicture.asset('assets/svg/apple.svg'),
+                  labelText: '   Continue with Apple',
+                  backgroundButton: Colors.white,
+                  textColor: AppColor.primary,
+                  labelSize: 16,
+                  width: 354,
+                  height: 50,
+                  borderRadius: BorderRadius.circular(12),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  onPressed: (){},
+                ),
+              ),
+              verticalSpace(15),
+              RichText(
+                text: TextSpan(
+                  text: 'Already have an account?  ',
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                  children: [
+                    TextSpan(
+                        text: 'Sign in',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            navigateTo(context, const LoginScreen());
+                          }),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+

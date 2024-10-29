@@ -14,6 +14,8 @@ import '../utils/enum/shared_preference_keys.dart';
 class AuthenticationProvider extends ChangeNotifier {
   AuthenticationService authenticationService = AuthenticationService();
 
+  TextEditingController phoneController = TextEditingController();
+
   ProfileData? profileData;
 
   String? statusType;
@@ -35,29 +37,6 @@ class AuthenticationProvider extends ChangeNotifier {
 
   String codeOTP='';
 
-
-
-
-  Future<ResponseResult>checkCode(
-      {required String phoneNumber, required String countryCode, required String otp}) async {
-    Status state = Status.error;
-    dynamic message;
-
-    await authenticationService
-        .checkCode(phoneNumber, countryCode, otp)
-        .then((value) {
-      if (value.status == Status.success) {
-        state = Status.success;
-        message = value.message;
-        profileData = value.data;
-        CacheHelper.saveData(key: CacheKey.loggedIn, value: true);
-      } else {
-        message = value.message;
-      }
-    });
-    notifyListeners();
-    return ResponseResult(state, profileData, message: message);
-  }
 
 
   //-------------------------------------------- change Language -------
