@@ -5,7 +5,7 @@ import '../../../models/onboarding_item_model.dart';
 List<OnBoardingItemsModel> boardingItemsList = [
   OnBoardingItemsModel(
     height: 21.h,
-    image: 'assets/images/img.png',
+    image: 'assets/images/logo.png',
     textTitle: 'Sketch app',
     textBody:
     'Don\'t know how to recharge your car ?\n  Now you can buy or rent any charging devices easily',
@@ -27,7 +27,7 @@ List<OnBoardingItemsModel> boardingItemsList = [
   ),
   OnBoardingItemsModel(
     height: 10.h,
-    image: 'assets/images/img.png',
+    image: 'assets/images/logo.png',
     textTitle: 'Sketch app',
     textBody:
     'Thinking of EV charger installation? Searching for a qualified center to repair and maintain your EV, we\'re experts.',

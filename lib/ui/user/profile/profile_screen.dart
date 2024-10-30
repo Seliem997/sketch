@@ -19,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 40,
-                  backgroundImage: AssetImage('assets/profile.jpg'), // Replace with actual image path
+                  backgroundImage: AssetImage('assets/images/logo.png'), // Replace with actual image path
                 ),
                 const SizedBox(width: 16),
                 const Column(

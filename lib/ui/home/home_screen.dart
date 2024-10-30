@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                           },
                           child: const CircleAvatar(
                             radius: 15,
-                            backgroundImage: AssetImage('assets/images/img.png'), // Replace with your image path
+                            backgroundImage: AssetImage('assets/images/logo.png'), // Replace with your image path
                           ),
                         ),
                       ],
