@@ -119,6 +119,7 @@ class _MyAppState extends State<MyApp> {
             theme: isDarkMode
                 ? ThemeData.dark().copyWith()
                 : ThemeData(
+              canvasColor: Colors.transparent,
               fontFamily: Intl.getCurrentLocale() == 'en' ? 'NetGilroy' : 'MMTSDR',
               primarySwatch: Colors.grey,
               appBarTheme: const AppBarTheme(
