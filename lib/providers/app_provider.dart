@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sketch/ui/reels/reels_screen.dart';
 
@@ -7,13 +6,12 @@ import '../ui/gallery/gallery_screen.dart';
 import '../ui/home/home_screen.dart';
 
 class AppProvider extends ChangeNotifier {
-
   int currentIndex = 0;
 
   List<Widget> bottomScreens = [
     const HomePage(),
     const ChatScreen(),
-    const ReelsScreen(),
+    ReelsScreen(),
     const GalleryScreen(),
   ];
 
@@ -23,7 +21,6 @@ class AppProvider extends ChangeNotifier {
   }
 
 //-------------------------------------------- changeSideBarDrawer -------
-
 
   bool isDrawerOpen = false;
 
@@ -36,5 +33,4 @@ class AppProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 }

@@ -19,7 +19,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.3
+  sdk: '>=3.1.5 <4.0.0'
+  flutter: 3.22.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -52,6 +53,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   video_player: ^2.9.1
   carousel_slider: ^5.0.0
+  reels_viewer: 1.0.0+3
 
 dev_dependencies:
   flutter_test:
